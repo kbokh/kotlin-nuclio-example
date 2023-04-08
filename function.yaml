@@ -1,0 +1,43 @@
+nuctl metadata:
+  name: example-handler
+spec:
+  handler: "com.bokhko.nuclio.handler.ExampleHandler"
+  runtime: "java"
+  resources: {}
+  minReplicas: 1
+  maxReplicas: 1
+  triggers:
+    custom-kafka:
+      class: ""
+      kind: kafka-cluster
+      name: custom-kafka
+      maxWorkers: 1
+      attributes:
+        brokers:
+          - 'redpanda:29092'
+        consumerGroup: kotlin-example
+        heartbeatInterval: 3s
+        initialOffset: latest
+        maxWaitHandlerDuringRebalance: 5s
+        rebalanceTimeout: 60s
+        sasl:
+          enable: false
+          password: ""
+          user: ""
+        sessionTimeout: 10s
+        topics:
+          - example-topic
+        workerAllocationMode: pool
+    default-http:
+      class: ""
+      kind: http
+      name: default-http
+      maxWorkers: 1
+      attributes:
+        serviceType: ClusterIP
+  version: -1
+  loggerSinks:
+    - level: debug
+  platform: {}
+  securityContext: {}
+  eventTimeout: ""

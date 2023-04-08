@@ -1,0 +1,6 @@
+Java.gitignore
+
+.idea
+.gradle
+build
+.data/
